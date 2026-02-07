@@ -2591,3 +2591,5 @@
 /api/student/courses
 /api/csrf-token
 /api/contact
+/api/student/courses
+/api/student/courses
