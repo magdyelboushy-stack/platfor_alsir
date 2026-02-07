@@ -5,7 +5,7 @@ export function getImageUrl(path: string | null | undefined): string {
     if (!path) return '';
 
     // Normalize API_URL and remove trailing slash
-    const envApiUrl = (import.meta as any).env.VITE_API_URL || 'http://localhost:8000/api';
+    const envApiUrl = (import.meta as any).env.VITE_API_URL || 'https://elsirelshamy.alwaysdata.net/api';
     const API_URL = envApiUrl.endsWith('/') ? envApiUrl.slice(0, -1) : envApiUrl;
     const BASE_URL = API_URL.replace('/api', '');
     const IS_DEV = (import.meta as any).env?.DEV === true;
