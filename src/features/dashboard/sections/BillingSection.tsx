@@ -46,7 +46,6 @@ export function BillingSection() {
             setTransactions(Array.isArray(historyRes) ? historyRes : (historyRes as any)?.data || []);
 
         } catch (error) {
-            console.error('Failed to fetch billing data:', error);
         } finally {
             setIsLoading(false);
         }

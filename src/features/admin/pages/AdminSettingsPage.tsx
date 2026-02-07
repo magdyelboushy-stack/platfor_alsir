@@ -63,7 +63,6 @@ export function AdminSettingsPage() {
             // Optional: Show Success Toast
             alert('تم حفظ الإعدادات بنجاح!'); // Placeholder for Toast
         } catch (error) {
-            console.error(error);
             alert('حدث خطأ أثناء الحفظ');
         } finally {
             setLoading(false);

@@ -99,7 +99,6 @@ export default function EvaluationsList() {
         const refToken = searchParams.get('ref');
         if (refToken && !trackedTokens.current.has(refToken)) {
             trackedTokens.current.add(refToken);
-            console.log(`Recording visit for token: ${refToken}`);
 
             api.post(`/referrals/${refToken}/visit`)
                 .catch(() => { })
@@ -145,7 +144,6 @@ export default function EvaluationsList() {
             const data = await api.get<Evaluation[]>(ENDPOINTS.EVALUATIONS.LIST, { params: filters });
             setEvaluations(Array.isArray(data) ? data : []);
             if (!Array.isArray(data)) {
-                console.error('Expected array from evaluations API, got:', data);
             }
         } catch (error) {
             console.error('Failed to fetch evaluations:', error);
@@ -186,7 +184,6 @@ export default function EvaluationsList() {
                 handleIncrementDownload(pendingEvalId);
             }
         } catch (error) {
-            console.error('Poll failed:', error);
         }
     };
 
@@ -257,7 +254,6 @@ export default function EvaluationsList() {
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
             setIsPolling(true);
         } catch (error) {
-            console.error('Share failed:', error);
             alert('عذراً، فشل إنشاء رابط المشاركة. يرجى المحاولة مرة أخرى.');
         }
     };

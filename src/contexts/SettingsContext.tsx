@@ -29,7 +29,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
             applyTheme();
             applySiteIdentity();
         } catch (error) {
-            console.error('Failed to load settings', error);
             // Even if it fails, apply branding
             applyTheme();
             applySiteIdentity();

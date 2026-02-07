@@ -36,7 +36,6 @@ export function SubscriptionsSection() {
 
             setSubscriptions(mappedSubs);
         } catch (error) {
-            console.error('Failed to fetch subscription data:', error);
         } finally {
             setIsLoading(false);
         }

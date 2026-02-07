@@ -21,7 +21,11 @@ class SecurityHeaders {
         // Content Security Policy (CSP)
         $isLocal = !isset($_ENV['APP_ENV']) || $_ENV['APP_ENV'] === 'local';
         $allowedOrigins = $_ENV['ALLOWED_ORIGINS'] ?? '';
-        $extraOrigins = str_replace(',', ' ', $allowedOrigins);
+        // Normalize extra origins list: trim spaces and remove trailing slashes
+        $extraOrigins = implode(' ', array_map(function($o) {
+            $o = trim($o);
+            return rtrim($o, '/');
+        }, array_filter(explode(',', $allowedOrigins))));
 
         $csp = implode('; ', [
             "default-src 'self'",

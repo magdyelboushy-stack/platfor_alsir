@@ -52,7 +52,6 @@ export function StudentsManagerPage() {
             setFilteredStudents(studentsRes.data);
             setStats(statsRes.data);
         } catch (error) {
-            console.error('Failed to fetch students data:', error);
             toast.show({
                 type: 'error',
                 title: 'خطأ',

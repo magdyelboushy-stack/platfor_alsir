@@ -8,9 +8,6 @@ use App\Services\TelegramService;
 use App\Services\EmailService;
 use App\Utils\AuditLogger;
 
-// Load Debug Logger
-require_once __DIR__ . '/../../../DebugLogger.php';
-
 class TelegramWebhook extends BaseController {
     protected $userModel;
 
@@ -20,16 +17,14 @@ class TelegramWebhook extends BaseController {
 
     public function handle() {
         $input = file_get_contents('php://input');
-        \DebugLogger::log("TELEGRAM_WEBHOOK: Received Request", ['input_length' => strlen($input)]);
         
         $update = json_decode($input, true);
 
         if (!$update) {
-            \DebugLogger::log("TELEGRAM_WEBHOOK: Failed to decode JSON or empty body", ['input' => $input]);
             return;
         }
         
-        \DebugLogger::log("TELEGRAM_WEBHOOK: Update Type", ['keys' => array_keys($update)]);
+        
 
         // Callback queries (button clicks)
         if (isset($update['callback_query'])) {
@@ -78,18 +73,17 @@ class TelegramWebhook extends BaseController {
     }
 
     private function approveStudent($callbackId, $messageId, $studentId, $adminName) {
-        \DebugLogger::log("TELEGRAM_WEBHOOK: Starting approval", ['studentId' => $studentId, 'admin' => $adminName]);
+        
         
         try {
             $target = $this->userModel->find($studentId);
-            \DebugLogger::log("TELEGRAM_WEBHOOK: User lookup", ['found' => $target ? 'Yes - '.$target['name'] : 'NO']);
             
             if (!$target) {
                 TelegramService::answerCallback($callbackId, "❌ هذا الطالب لم يعد موجوداً في النظام");
                 return;
             }
 
-            \DebugLogger::log("TELEGRAM_WEBHOOK: Current status", ['status' => $target['status']]);
+            
             
             if ($target['status'] === 'active') {
                 TelegramService::answerCallback($callbackId, "⚠️ تم تفعيل هذا الحساب مسبقاً");
@@ -98,7 +92,6 @@ class TelegramWebhook extends BaseController {
 
             // 1. Generate Code and Activate
             $verificationCode = EmailService::generateCode();
-            \DebugLogger::log("TELEGRAM_WEBHOOK: Generated code", ['code' => $verificationCode]);
             
             $updateData = [
                 'status' => 'active',
@@ -106,13 +99,12 @@ class TelegramWebhook extends BaseController {
                 'is_sms_verified' => 0
             ];
 
-            \DebugLogger::log("TELEGRAM_WEBHOOK: Attempting update...");
+            
             $updateResult = $this->userModel->update($studentId, $updateData);
-            \DebugLogger::log("TELEGRAM_WEBHOOK: Update result", ['success' => $updateResult ? 'YES' : 'NO']);
+            
 
             if ($updateResult) {
                 // 2. Send Email
-                \DebugLogger::log("TELEGRAM_WEBHOOK: Sending email", ['to' => $target['email']]);
                 EmailService::sendVerificationCode($target['email'], $target['name'], $verificationCode);
 
                 // 3. Update Telegram Message (Premium Design)
@@ -135,11 +127,9 @@ class TelegramWebhook extends BaseController {
                 // 5. Toast Notification
                 TelegramService::answerCallback($callbackId, "✅ تم تفعيل الطالب وإرسال الإيميل بنجاح!");
             } else {
-                \DebugLogger::log("TELEGRAM_WEBHOOK: Update FAILED!");
                 TelegramService::answerCallback($callbackId, "❌ فشل تحديث بيانات الطالب");
             }
         } catch (\Exception $e) {
-            \DebugLogger::log("TELEGRAM_WEBHOOK ERROR", ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
             TelegramService::answerCallback($callbackId, "❌ حدث خطأ أثناء المعالجة");
         }
     }
@@ -170,7 +160,6 @@ class TelegramWebhook extends BaseController {
                 TelegramService::answerCallback($callbackId, "🗑️ تم رفض وحذف الطالب بنجاح");
             }
         } catch (\Exception $e) {
-            error_log("Webhook Error: " . $e->getMessage());
             TelegramService::answerCallback($callbackId, "❌ حدث خطأ أثناء المعالجة");
         }
     }
@@ -262,7 +251,7 @@ class TelegramWebhook extends BaseController {
      */
     public function setup() {
         $token = $_ENV['TELEGRAM_BOT_TOKEN'] ?? '';
-        $domain = $_ENV['APP_URL'] ?? 'https://bistunhalk.alwaysdata.net'; 
+        $domain = rtrim($_ENV['APP_URL'] ?? 'https://bistunhalk.alwaysdata.net', '/'); 
         $webhookUrl = $domain . '/api/webhooks/telegram';
 
         if (!$token) {

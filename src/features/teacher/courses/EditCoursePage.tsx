@@ -341,7 +341,6 @@ export function EditCoursePage() {
             setIsConfirmOpen(false);
             navigate(`${basePath}/courses`);
         } catch (error: any) {
-            console.error('Failed to delete course:', error);
             toast.show({
                 type: 'error',
                 title: 'خطأ',

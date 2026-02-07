@@ -80,7 +80,6 @@ export function CourseDetailsPage() {
             // Normalize fields from backend before setting state
             setCourse(normalizeCourse(response.data));
         } catch (error) {
-            console.error('Failed to fetch course details:', error);
         } finally {
             setLoading(false);
         }
@@ -97,7 +96,6 @@ export function CourseDetailsPage() {
             await apiClient.post(ENDPOINTS.COURSES.ENROLL(courseId || ''));
             fetchCourse(); // Refresh to update enrollment/subscription state
         } catch (error) {
-            console.error('Enrollment failed:', error);
         }
     };
 

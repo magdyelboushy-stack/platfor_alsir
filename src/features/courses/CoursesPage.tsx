@@ -66,7 +66,6 @@ export function CoursesPage() {
             }));
             setCourses(normalized);
         } catch (error) {
-            console.error("Failed to fetch real courses:", error);
             setCourses([]);
         } finally {
             setLoading(false);
@@ -83,7 +82,6 @@ export function CoursesPage() {
             await api.post(ENDPOINTS.COURSES.ENROLL(courseId));
             fetchCourses();
         } catch (error) {
-            console.error("Enrollment failed:", error);
         }
     };
 

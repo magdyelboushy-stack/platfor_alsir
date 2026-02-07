@@ -33,7 +33,6 @@ export function CodesManagerPage() {
             setCodes(codesData);
             setStats(statsData);
         } catch (error) {
-            console.error('Failed to fetch codes:', error);
             show({ type: 'error', title: 'خطأ', message: 'فشل في جلب الأكواد' });
         } finally {
             setIsLoading(false);

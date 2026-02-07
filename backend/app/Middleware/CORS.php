@@ -12,9 +12,18 @@ class CORS {
         $allowedOriginsStr = $_ENV['ALLOWED_ORIGINS'] ?? '';
         $allowedOrigins = !empty($allowedOriginsStr) ? explode(',', $allowedOriginsStr) : [];
         $allowedOrigins = array_map('trim', $allowedOrigins);
+        // Normalize origins (remove trailing slash)
+        $allowedOrigins = array_map(function($o) {
+            if ($o === '') return $o;
+            return rtrim($o, '/');
+        }, $allowedOrigins);
         $allowedOrigins = array_filter($allowedOrigins); // Remove empty values
         
+        // Normalize request origin (remove trailing slash)
         $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+        if (!empty($origin)) {
+            $origin = rtrim($origin, '/');
+        }
         $isProduction = ($_ENV['APP_ENV'] ?? 'production') === 'production';
         $isDevelopment = !$isProduction;
         
@@ -29,7 +38,7 @@ class CORS {
         $allowOrigin = null;
         
         // Determine which origin to allow
-        if (!empty($allowedOrigins) && in_array($origin, $allowedOrigins)) {
+        if (!empty($allowedOrigins) && in_array($origin, $allowedOrigins, true)) {
             // Origin is in whitelist
             $allowOrigin = $origin;
         } else if ($isDevelopment) {

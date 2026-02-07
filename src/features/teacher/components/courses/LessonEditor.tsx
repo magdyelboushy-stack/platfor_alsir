@@ -55,7 +55,6 @@ export function LessonEditor({ lesson, onSave, onDelete }: LessonEditorProps) {
                         setExams(res.data.items || []);
                     }
                 })
-                .catch((err: any) => console.error('Failed to load exams', err))
                 .finally(() => setIsLoadingExams(false));
         }
     }, [contentType]);

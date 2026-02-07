@@ -63,7 +63,6 @@ export function CoursesListPage() {
             const response = await apiClient.get(ENDPOINTS.ADMIN.COURSES.LIST);
             setCourses(response.data);
         } catch (error) {
-            console.error('Failed to fetch courses:', error);
         } finally {
             setIsLoading(false);
         }

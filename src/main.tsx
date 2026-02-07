@@ -23,6 +23,15 @@ const queryClient = new QueryClient({
 
 import { HelmetProvider } from 'react-helmet-async';
 
+if (import.meta.env.PROD) {
+    const noop = () => { };
+    console.log = noop;
+    console.info = noop;
+    console.debug = noop;
+    console.warn = noop;
+    console.error = noop;
+}
+
 // Render app
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
