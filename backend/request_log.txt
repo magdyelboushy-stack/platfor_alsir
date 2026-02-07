@@ -2621,3 +2621,9 @@
 /api/admin/settings
 /api/auth/me
 /api/admin/requests/pending
+/api/admin/settings
+/api/auth/me
+/api/admin/settings
+/api/auth/me
+/api/admin/requests/pending
+/api/admin/requests/pending

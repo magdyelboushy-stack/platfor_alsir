@@ -124,12 +124,26 @@ export function Footer() {
                 </div>
 
                 <div className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-slate-500 font-bold text-sm">© 2026 منصة السير الشامي. جميع الحقوق محفوظة.</p>
-                    <div className="flex gap-6 text-slate-500 font-bold text-sm">
-                        <a href="#" className="hover:text-brand-500 transition-colors">شروط الاستخدام</a>
-                        <a href="#" className="hover:text-brand-500 transition-colors">سياسة الخصوصية</a>
-                    </div>
-                </div>
+    <div className="flex flex-col sm:flex-row items-center gap-2 text-slate-500 font-bold text-sm">
+        <p>© 2026 {settings?.app_name || 'منصة '}. جميع الحقوق محفوظة.</p>
+        <span className="hidden sm:inline">•</span>
+        <p>
+            تم التطوير بواسطة{' '}
+            <a 
+                href="https://www.facebook.com/profile.php?id=61584654992405" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-brand-500 hover:text-brand-400 transition-colors font-black"
+            >
+                Magdy Elboushy
+            </a>
+        </p>
+    </div>
+    <div className="flex gap-6 text-slate-500 font-bold text-sm">
+        <a href="#" className="hover:text-brand-500 transition-colors">شروط الاستخدام</a>
+        <a href="#" className="hover:text-brand-500 transition-colors">سياسة الخصوصية</a>
+    </div>
+</div>
             </div>
         </footer>
     );

@@ -90,7 +90,7 @@ export function Navbar() {
               />
             </div>
             <div className="hidden md:flex flex-col">
-              <span className="text-[10px] font-black text-[var(--brand-secondary)] uppercase tracking-[.4em] leading-none mb-1 shadow-sm">{settings?.app_name || 'منصه'}</span>
+              <span className="text-[10px] font-black text-[var(--brand-secondary)] uppercase tracking-[.4em] leading-none mb-1 shadow-sm">{settings?.app_name || 'منصة '}</span>
               <span className="text-xl font-black text-[var(--text-primary)] leading-none tracking-tight font-display">{settings?.app_name || 'السير الشامي'}</span>
             </div>
           </Link>
