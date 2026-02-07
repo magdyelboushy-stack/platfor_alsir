@@ -12,21 +12,26 @@ use App\Services\TelegramService;
 class ContactController extends BaseController {
     private function ensureTableExists($db) {
         $db->exec("CREATE TABLE IF NOT EXISTS contact_messages (
-            id VARCHAR(36) PRIMARY KEY,
+            id VARCHAR(36) NOT NULL,
             name VARCHAR(100) NOT NULL,
-            email VARCHAR(150) NOT NULL,
-            phone VARCHAR(20) NULL,
+            phone VARCHAR(20) DEFAULT NULL,
             message TEXT NOT NULL,
             status VARCHAR(20) NOT NULL DEFAULT 'new',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )");
-        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN email VARCHAR(150)"); } catch (\Throwable $e) {}
+            created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+            email VARCHAR(150) DEFAULT NULL,
+            admin_reply TEXT NULL,
+            replied_at TIMESTAMP NULL DEFAULT NULL,
+            telegram_message_id VARCHAR(30) DEFAULT NULL,
+            telegram_chat_id VARCHAR(30) DEFAULT NULL,
+            pending_reply_chat_id VARCHAR(30) DEFAULT NULL,
+            PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
         try { $db->exec("ALTER TABLE contact_messages MODIFY COLUMN phone VARCHAR(20) NULL"); } catch (\Throwable $e) {}
         try { $db->exec("ALTER TABLE contact_messages ADD COLUMN admin_reply TEXT"); } catch (\Throwable $e) {}
         try { $db->exec("ALTER TABLE contact_messages ADD COLUMN replied_at TIMESTAMP NULL DEFAULT NULL"); } catch (\Throwable $e) {}
-        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN telegram_message_id VARCHAR(30) NULL"); } catch (\Throwable $e) {}
-        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN telegram_chat_id VARCHAR(30) NULL"); } catch (\Throwable $e) {}
-        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN pending_reply_chat_id VARCHAR(30) NULL"); } catch (\Throwable $e) {}
+        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN telegram_message_id VARCHAR(30) DEFAULT NULL"); } catch (\Throwable $e) {}
+        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN telegram_chat_id VARCHAR(30) DEFAULT NULL"); } catch (\Throwable $e) {}
+        try { $db->exec("ALTER TABLE contact_messages ADD COLUMN pending_reply_chat_id VARCHAR(30) DEFAULT NULL"); } catch (\Throwable $e) {}
     }
 
     public function handle() {

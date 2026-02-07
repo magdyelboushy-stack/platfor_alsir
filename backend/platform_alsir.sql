@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 07, 2026 at 06:08 AM
+-- Generation Time: Feb 07, 2026 at 06:47 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -22,11 +22,10 @@ SET time_zone = "+00:00";
 --
 
 DELIMITER $$
-
-DROP PROCEDURE IF EXISTS `cleanup_old_data`$$
-
-CREATE PROCEDURE `cleanup_old_data` ()
-BEGIN
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cleanup_old_data` ()   BEGIN
     DELETE FROM login_attempts WHERE created_at < DATE_SUB(NOW(), INTERVAL 90 DAY);
     DELETE FROM sessions WHERE last_activity < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 DAY));
     DELETE FROM blocked_ips WHERE expires_at IS NOT NULL AND expires_at < NOW();
@@ -261,23 +260,6 @@ CREATE TABLE `contact_messages` (
   `telegram_chat_id` varchar(30) DEFAULT NULL,
   `pending_reply_chat_id` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `contact_messages`
---
-
-INSERT INTO `contact_messages` (`id`, `name`, `phone`, `message`, `status`, `created_at`, `email`, `admin_reply`, `replied_at`, `telegram_message_id`, `telegram_chat_id`, `pending_reply_chat_id`) VALUES
-('02d211ee-a626-4c7e-ad7d-7b9dd10f5d77', '????? ????', '01234567890', '?????? ??? ????? ???? ?????? ??? Cairo.', 'sent', '2026-02-07 04:51:12', 'client@example.com', NULL, NULL, NULL, NULL, NULL),
-('49c56b31-354c-4b12-8034-2dc055f9f02e', '????? ????', '01234567890', '?????? ?????? ?????? ???? ?????.', 'sent', '2026-02-07 04:45:31', 'client@example.com', NULL, NULL, NULL, NULL, NULL),
-('64cbd20e-7b74-4cc2-966a-5e6adef2c6ca', 'شسي', '01156820932', 'magdymohamed1929@gmail.commagdymohamed1929@gmail.commagdymohamed1929@gmail.commagdymohamed1929@gmail.com', 'sent', '2026-02-07 04:58:15', 'magdymohamed1929@gmail.com', NULL, NULL, NULL, NULL, NULL),
-('836f3234-33a6-4303-89e1-d31018e4b1d0', '???? ??????', '01234567890', '?????? ????? ??????. ??? ????? ???? ?????? ?????? ?? ???????.', 'sent', '2026-02-07 04:41:48', 'client@example.com', NULL, NULL, NULL, NULL, NULL),
-('861cd96e-582a-4722-a274-6c38b68d5d5d', 'مجدي محمد', '01156820932', 'Website Presentation KitWebsite Presentation KitWebsite Presentation KitWebsite Presentation KitWebsite Presentation Kit', 'sent', '2026-02-07 04:53:27', 'magdymohamed1929@gmail.com', NULL, NULL, NULL, NULL, NULL),
-('863faf58-bb92-4656-9337-fb3c63ff064a', '???? ??????', '01234567890', '??? ????? ?????? ???????.', 'sent', '2026-02-07 04:37:56', 'client@example.com', NULL, NULL, NULL, NULL, NULL),
-('9366c2c1-396f-4dbd-8994-099040541e57', 'مجدي', '01156820932', 'asdasdasd asd qwueqiow asoidu oasudioqwe شسياسشعي ضصث', 'responded', '2026-02-07 04:39:13', 'magdymohamed1929@gmail.com', 'شسي', '2026-02-07 04:47:42', NULL, NULL, NULL),
-('b193b354-937d-42fb-bf18-d978a5a3f07b', 'مجدي', '01156820932', 'شسيشسيشسي ضصثشسي ضصيضصي سيش', 'sent', '2026-02-07 04:28:58', NULL, NULL, NULL, NULL, NULL, NULL),
-('bb48a76a-8957-4f5f-af31-036d0e3ed170', 'شسيشسي', '01156820932', 'asdasdadqewqweqweasd qw asd qwe ads', 'responded', '2026-02-07 04:42:56', 'magdymohamed1929@gmail.com', 'شسي', '2026-02-07 04:57:31', NULL, NULL, NULL),
-('e4636854-9c92-41cf-85c3-499f09f94c2a', 'شسي', '01156820932', 'magdymohamed1929@gmail.commagdymohamed1929@gmail.commagdymohamed1929@gmail.commagdymohamed1929@gmail.com', 'responded', '2026-02-07 04:46:56', 'magdymohamed1929@gmail.com', 'asd', '2026-02-07 04:52:43', NULL, NULL, NULL),
-('e53c24d0-c9d6-4926-8ec8-6591ce110148', 'سشي', '01156820932', 'magdymohamed1929@gmail.com', 'sent', '2026-02-07 05:09:54', 'magdymohamed1929@gmail.com', NULL, NULL, '5', '8265886951', NULL);
 
 -- --------------------------------------------------------
 
@@ -1418,8 +1400,7 @@ DELIMITER $$
 --
 -- Events
 --
-DROP EVENT IF EXISTS `daily_cleanup`;
-CREATE EVENT `daily_cleanup` ON SCHEDULE EVERY 1 DAY STARTS '2026-01-24 10:59:36' ON COMPLETION NOT PRESERVE ENABLE DO CALL cleanup_old_data()$$
+CREATE DEFINER=`root`@`localhost` EVENT `daily_cleanup` ON SCHEDULE EVERY 1 DAY STARTS '2026-01-24 10:59:36' ON COMPLETION NOT PRESERVE ENABLE DO CALL cleanup_old_data()$$
 
 DELIMITER ;
 COMMIT;

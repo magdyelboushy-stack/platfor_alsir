@@ -3,7 +3,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useUIStore } from '@/store/uiStore';
 import type { ApiError } from '@/core/types/common';
 
-const API_BASE_URL = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_API_URL || '/api');
+const API_BASE_URL = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_API_URL || 'https://elsirelshamy.alwaysdata.net/api');
 
 export const apiClient: AxiosInstance = axios.create({
     baseURL: API_BASE_URL,
@@ -15,15 +15,22 @@ export const apiClient: AxiosInstance = axios.create({
 });
 
 apiClient.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
-        const { tokens, csrfToken } = useAuthStore.getState();
+    async (config: InternalAxiosRequestConfig) => {
+        const { tokens, csrfToken, fetchCsrfToken } = useAuthStore.getState();
 
         if (tokens?.accessToken) {
             config.headers.Authorization = `Bearer ${tokens.accessToken}`;
         }
 
-        if (csrfToken) {
-            config.headers['X-CSRF-TOKEN'] = csrfToken;
+        const method = (config.method || 'get').toUpperCase();
+        if (method !== 'GET') {
+            let tokenToUse = csrfToken;
+            if (!tokenToUse) {
+                tokenToUse = await fetchCsrfToken();
+            }
+            if (tokenToUse) {
+                config.headers['X-CSRF-TOKEN'] = tokenToUse;
+            }
         }
 
         return config;

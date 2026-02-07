@@ -12,3 +12,5 @@
 /api/admin/settings
 /api/admin/settings
 /api/admin/settings
+/api/admin/settings
+/api/admin/settings

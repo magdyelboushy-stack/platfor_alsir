@@ -65,10 +65,10 @@ export const useAuthStore = create<AuthStore>()(
                 set((state) => { state.isLoading = true; });
                 try {
                     // 1. Get/Make sure we have a fresh CSRF Token
-                    await get().fetchCsrfToken();
+                    const csrfToken = await get().fetchCsrfToken();
 
                     // 2. Call Validation Endpoint
-                    await api.post(ENDPOINTS.AUTH.VALIDATE_STEP, data);
+                    await api.post(ENDPOINTS.AUTH.VALIDATE_STEP, { ...data, csrf_token: csrfToken });
 
                     set((state) => { state.isLoading = false; });
                     return true;
