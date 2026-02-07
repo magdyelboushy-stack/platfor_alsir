@@ -47,7 +47,7 @@ def main():
         # Backend updates
         be_updates = {
             'DB_HOST': 'localhost',
-            'DB_DATABASE': 'bacaloria_db',
+            'DB_DATABASE': 'platform_alsir',
             'DB_USERNAME': 'root',
             'DB_PASSWORD': '',
             'APP_URL': 'http://localhost:8001',
@@ -61,18 +61,18 @@ def main():
         env_type = 'production'
         # Frontend updates
         fe_updates = {
-            'VITE_API_URL': 'https://bistunhalk.alwaysdata.net/api',
+            'VITE_API_URL': 'https://elsirelshamy.alwaysdata.net/api',
             'VITE_APP_ENV': 'production',
             'DEBUG': 'false'
         }
         # Backend updates
         be_updates = {
-            'DB_HOST': 'mysql-bistunhalk.alwaysdata.net',
-            'DB_DATABASE': 'bistunhalk_bistunhalk',
-            'DB_USERNAME': 'bistunhalk',
+            'DB_HOST': 'mysql-elsirelshamy.alwaysdata.net',
+            'DB_DATABASE': 'elsirelshamy_elsirelshamy',
+            'DB_USERNAME': 'elsirelshamy',
             'DB_PASSWORD': 'Magdy@2010',
-            'APP_URL': 'https://bistunhalk.alwaysdata.net',
-            'ALLOWED_ORIGINS': 'https://basstnhalk.vercel.app',
+            'APP_URL': 'https://elsirelshamy.alwaysdata.net/',
+            'ALLOWED_ORIGINS': 'https://elsirelshamy.vercel.app/',   
             'APP_ENV': 'production',
             'DEBUG': 'false',
             'TELEGRAM_BOT_TOKEN': '8530603884:AAHRpUwIf13_SGBK16v1LLs3zRXgh-01Sio',

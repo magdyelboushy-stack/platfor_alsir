@@ -2627,3 +2627,11 @@
 /api/auth/me
 /api/admin/requests/pending
 /api/admin/requests/pending
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings
+/api/admin/settings

@@ -17,7 +17,7 @@ class EmailService {
     // Branding - Classical Theme
     private static $logoUrl = 'https://i.ibb.co/chwwR9SZ/594930133-1456894779774091-6490422839217536606-n.jpg';
     private static $bannerUrl = 'https://i.ibb.co/FFBQjtd/577042863-1456895286440707-6069203572316920901-n.jpg';
-    private static $platformUrl = 'https://basstnhalk.vercel.app';
+    private static $platformUrl = 'https://elsirelshamy.vercel.app/';
     private static $platformName = 'السير الشامي';
 
     public static function sendContactAdminNotification($to, $name, $email, $phone, $message) {
