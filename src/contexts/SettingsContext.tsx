@@ -14,7 +14,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     const BRANDING = {
-        app_name: 'الأكاديمية - السير الشامي',
+        app_name: 'منصه  - السير الشامي',
         primary_color: '#7F1D1D',     // Redish
         secondary_color: '#B45309',   // Amber
         accent_color: '#FCD34D',      // Gold
