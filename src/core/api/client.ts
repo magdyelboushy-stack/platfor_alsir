@@ -29,7 +29,7 @@ apiClient.interceptors.request.use(
                 tokenToUse = await fetchCsrfToken();
             }
             if (tokenToUse) {
-                config.headers['X-CSRF-TOKEN'] = tokenToUse;
+                config.headers['X-CSRF-Token'] = tokenToUse;
             }
         }
 

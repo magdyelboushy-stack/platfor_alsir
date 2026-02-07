@@ -8,8 +8,8 @@ use App\Utils\Validator;
 class Validation extends BaseController {
     
     public function check() {
-        // CSRF Check
-        $csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+        $data = $this->getInput();
+        $csrfToken = $data['csrf_token'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null);
         if (!\App\Utils\CSRF::validate($csrfToken)) {
             $this->json(['error' => 'Invalid CSRF token'], 403);
         }
@@ -21,8 +21,6 @@ class Validation extends BaseController {
             'password', 'confirm_password'
         ];
 
-        // Sanitize Input
-        $data = $this->getInput();
         $fieldsToValidate = array_intersect_key($data, array_flip($allowedFields));
         
         $validator = new Validator();
