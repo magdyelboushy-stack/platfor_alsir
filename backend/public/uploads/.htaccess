@@ -1,0 +1,33 @@
+# Block directory listing
+Options -Indexes
+
+# Prevent script execution
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|aspx|sh|cgi|exe)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow only specific types
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Block hidden files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    # Content-Security-Policy removed because it was blocking images with 'none'
+    Header set Access-Control-Allow-Origin "*"
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Cache Control for Images (1 year)
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+</IfModule>

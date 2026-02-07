@@ -1,0 +1,78 @@
+  :root {
+    /* Base Colors - Premium Math Academy Theme */
+    --bg-main: #faf8f5;
+    /* Warm Cream */
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+
+    --text-primary: #1a0a0d;
+    /* Deep Burgundy Black */
+    --text-secondary: #4a3035;
+    /* Muted Burgundy */
+
+    --border-color: rgb(var(--brand-500-rgb) / 0.12);
+
+    /* AL-SEER AL-SHAMI MATH PALETTE (Burgundy & Gold) */
+    /* Primary: Deep Royal Burgundy/Maroon */
+    --brand-50: #fdf2f4;
+    --brand-50-rgb: 253 242 244;
+    --brand-100: #fce4e8;
+    --brand-100-rgb: 252 228 232;
+    --brand-200: #facdd5;
+    --brand-200-rgb: 250 205 213;
+    --brand-300: #f6a3b3;
+    --brand-300-rgb: 246 163 179;
+    --brand-400: #ef6b87;
+    --brand-400-rgb: 239 107 135;
+    --brand-500: #6b1b2b;
+    --brand-500-rgb: 107 27 43;
+    /* Deep Burgundy/Maroon */
+    --brand-600: #8b2438;
+    --brand-600-rgb: 139 36 56;
+    --brand-700: #a12d42;
+    --brand-700-rgb: 161 45 66;
+    --brand-800: #b8364d;
+    --brand-800-rgb: 184 54 77;
+    --brand-900: #4a1219;
+    --brand-900-rgb: 74 18 25;
+    --brand-950: #2d0a0f;
+    --brand-950-rgb: 45 10 15;
+
+    /* Legacy Alias */
+    --brand-primary: var(--brand-500);
+    --brand-secondary: #d4a853;
+    /* Rich Gold Accent */
+    --brand-dark: var(--brand-950);
+    --brand-accent: #f0c96b;
+    /* Bright Gold */
+    --color-brand: var(--brand-500);
+
+    /* Chalkboard Green for Math vibes */
+    --math-green: #2d4a3e;
+    --math-chalk: #e8e4dc;
+
+    --dark-main: #0f0708;
+    /* Deep Dark Burgundy-Black */
+    --dark-panel: #1a0d10;
+    --dark-border: rgb(var(--brand-400-rgb) / 0.15);
+
+    --glass-bg: rgba(255, 252, 248, 0.8);
+    --glass-border: rgb(var(--brand-500-rgb) / 0.15);
+    --lamp-glow: 0 0 40px rgb(212, 168, 83, 0.3);
+    --ios-shadow: 0 8px 32px 0 rgba(107, 27, 43, 0.12);
+  }
+
+  /* Dark Mode Overrides - Luxury Dark Math Theme */
+  .dark {
+    --bg-main: var(--dark-main);
+    --bg-secondary: var(--dark-panel);
+    --bg-card: #251216;
+    --text-primary: #faf5f0;
+    --text-secondary: #c9b8a8;
+    --border-color: var(--dark-border);
+
+    --glass-bg: rgba(26, 13, 16, 0.85);
+    --glass-border: rgb(212, 168, 83, 0.2);
+    --lamp-glow: 0 0 50px rgb(212, 168, 83, 0.25);
+    --ios-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+  }

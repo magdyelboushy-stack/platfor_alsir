@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  border-color: var(--border-color);
+}
+
+html {
+  @apply scroll-smooth antialiased;
+}
+
+body {
+  @apply transition-colors duration-300;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Cairo', sans-serif;
+}
+
+/* GLOBAL SELECTION COLOR Override (Was Blue) */
+::selection {
+  background-color: var(--brand-primary);
+  color: #ffffff;
+}
+
+/* AUTOFILL COLOR Override (Was Blue) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--bg-card) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
+  transition: background-color 5000s ease-in-out 0s;
+  border-color: var(--brand-primary) !important;
+}
+
+/* Force Remove Blue Outline on Focus */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 0 0 4px rgb(var(--brand-500-rgb) / 0.15) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display;
+  color: var(--text-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-400 dark:bg-slate-700 rounded-full hover:bg-slate-500 dark:hover:bg-slate-600;
+}
+
+
+@layer utilities {
+  .font-display {
+    font-family: 'Alexandria', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-[24px] border transition-all;
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+    box-shadow: var(--ios-shadow);
+  }
+
+  .text-brand {
+    color: var(--color-brand);
+  }
+
+  .bg-brand {
+    background-color: var(--color-brand);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-500 to-amber-500;
+  }
+
+  .shadow-lamp {
+    box-shadow: var(--lamp-glow);
+  }
+
+  .scale-animation {
+    @apply transition-all duration-500;
+  }
+
+  .scale-animation:hover {
+    @apply scale-105;
+  }
+
+  .scale-animation:active {
+    @apply scale-95;
+  }
+}
